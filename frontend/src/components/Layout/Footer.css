@@ -9,11 +9,19 @@
 }
 
 .footer .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .language-switcher {
   margin: 0 auto;
   max-width: 400px;
+}
+
+.external-link {
+  color: #6c757d;
+  /* add spacing */
+  margin: 0 10px;
 }

@@ -3,9 +3,17 @@ import { fetchCompanies } from "../services/api";
 
 export const fetchCompaniesThunk = createAsyncThunk(
   "companies/fetchCompanies",
-  async () => {
-    const response = await fetchCompanies();
-    return response;
+  async ({ page, limit }) => {
+    console.log("Fetching companies with page:", page, "and limit:", limit);
+    let skip = (page - 1) * limit;
+    console.log("Skip:", skip);
+    const response = await fetchCompanies(skip, limit);
+    return {
+      data: response.companies,
+      page,
+      limit,
+      total: response.total,
+    };
   }
 );
 
@@ -16,10 +24,19 @@ const companySlice = createSlice({
     search: "",
     status: "idle",
     error: null,
+    currentPage: 1,
+    itemsPerPage: 9, // Default value
+    total: 10,
   },
   reducers: {
     setSearch: (state, action) => {
       state.search = action.payload;
+    },
+    setPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    setItemsPerPage: (state, action) => {
+      state.itemsPerPage = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -29,7 +46,10 @@ const companySlice = createSlice({
       })
       .addCase(fetchCompaniesThunk.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.companies = action.payload;
+        state.companies = action.payload.data;
+        state.currentPage = action.payload.page;
+        state.itemsPerPage = action.payload.limit;
+        state.totalItems = action.payload.total;
       })
       .addCase(fetchCompaniesThunk.rejected, (state, action) => {
         state.status = "failed";
@@ -38,5 +58,5 @@ const companySlice = createSlice({
   },
 });
 
-export const { setSearch } = companySlice.actions;
+export const { setSearch, setPage, setItemsPerPage } = companySlice.actions;
 export default companySlice.reducer;

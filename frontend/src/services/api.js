@@ -2,8 +2,14 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000/api";
 
-export const fetchCompanies = async () => {
-  const response = await axios.get(`${API_URL}/companies`);
+// Update fetchCompanies to accept pagination parameters
+export const fetchCompanies = async (skip = 0, limit = 9) => {
+  const response = await axios.get(`${API_URL}/companies`, {
+    params: {
+      skip,
+      limit,
+    },
+  });
   return response.data;
 };
 
