@@ -1,4 +1,4 @@
-from app.utils.csv_loader import load_csv
+from app.helper.csv_loader import load_csv
 from app.core.config import settings
 import logging
 
