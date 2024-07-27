@@ -46,3 +46,11 @@ Run the Docker containers using Docker Compose:
 ```bash
 sudo docker-compose up
 ```
+
+### 6. Health check url
+
+Health check : http://0.0.0.0:8000/
+
+### 7. Swagger UI
+
+Open this for swagger ui: http://0.0.0.0:8000/docs
