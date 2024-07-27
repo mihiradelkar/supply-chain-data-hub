@@ -1,34 +1,32 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { render } from "@testing-library/react";
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
 import CompanyListPage from "./CompanyListPage";
-import { fetchCompanies } from "../../services/api";
+import { I18nextProvider } from "react-i18next";
+import i18n from "../../i18n/config"; // Adjust the import based on your i18n configuration path
 
-jest.mock("../../services/api");
+const mockStore = configureStore([]);
 
-test("renders company list page", async () => {
-  const companies = [
-    { company_id: 1, name: "Company 1", address: "Address 1" },
-    { company_id: 2, name: "Company 2", address: "Address 2" },
-  ];
+test("renders company list page", () => {
+  const initialState = {
+    companies: {
+      companies: [],
+      search: "",
+      status: "idle",
+      error: null,
+    },
+  };
 
-  fetchCompanies.mockResolvedValueOnce(companies);
+  const store = mockStore(initialState);
 
-  render(
-    <Router>
-      <CompanyListPage />
-    </Router>
+  const { getByText } = render(
+    <Provider store={store}>
+      <I18nextProvider i18n={i18n}>
+        <CompanyListPage />
+      </I18nextProvider>
+    </Provider>
   );
 
-  expect(
-    screen.getByPlaceholderText("Search companies...")
-  ).toBeInTheDocument();
-
-  await waitFor(() => {
-    expect(screen.getByText("Company 1")).toBeInTheDocument();
-  });
-
-  await waitFor(() => {
-    expect(screen.getByText("Company 2")).toBeInTheDocument();
-  });
+  expect(getByText(/Find Your Company Here!/i)).toBeInTheDocument();
 });

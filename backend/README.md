@@ -49,7 +49,6 @@ source venv/bin/activate
 ### 5. Install Required Python Packages
 
 ```bash
-Copy code
 pip install -r requirements.txt
 ```
 

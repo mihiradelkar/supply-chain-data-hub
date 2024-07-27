@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
+// import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import {
   fetchTopCitiesWithMostJobs,
   fetchTopStatesWithMostJobs,

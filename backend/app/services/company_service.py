@@ -14,6 +14,16 @@ def get_all_companies():
     except Exception as e:
         logger.error(f"Error in get_all_companies: {e}")
         return []
+    
+def get_paginated_companies(skip: int, limit: int):
+    try:
+        df = load_companies()
+        total = len(df)
+        paginated_df = df.iloc[skip:skip + limit]
+        return paginated_df.to_dict(orient='records'), total
+    except Exception as e:
+        logger.error(f"Error in get_paginated_companies: {e}")
+        return [], 0
 
 def get_company_by_id(company_id: int):
     try:
