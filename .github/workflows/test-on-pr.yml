@@ -27,11 +27,11 @@ jobs:
 
       - name: Build and Test Backend
         run: |
-          docker-compose -f docker-compose.yml build backend
-          docker-compose -f docker-compose.yml run backend pytest
+          docker-compose -f docker-compose.yaml build backend
+          docker-compose -f docker-compose.yaml run backend pytest
 
       - name: Build and Test Frontend
         run: |
-          docker-compose -f docker-compose.yml build frontend
-          docker-compose -f docker-compose.yml run frontend npm install
-          docker-compose -f docker-compose.yml run frontend npm test
+          docker-compose -f docker-compose.yaml build frontend
+          docker-compose -f docker-compose.yaml run frontend npm install
+          docker-compose -f docker-compose.yaml run frontend npm test

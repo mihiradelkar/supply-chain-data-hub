@@ -27,8 +27,8 @@ jobs:
 
       - name: Build Backend
         run: |
-          docker-compose -f docker-compose.yml build backend
+          docker-compose -f docker-compose.yaml build backend
 
       - name: Build Frontend
         run: |
-          docker-compose -f docker-compose.yml build frontend
+          docker-compose -f docker-compose.yaml build frontend
