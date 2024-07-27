@@ -1,4 +1,5 @@
 # Features
 
-- heatmap
-- statics data
+- listing page (Home)
+- Heatmap
+- Statics data
